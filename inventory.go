@@ -42,6 +42,9 @@ func (a *App) CreateItem(code, name, description string, quantity int) (*Item, e
 		Description: description,
 		Quantity:    quantity,
 	}
+	if err := item.Validate(); err != nil {
+		return nil, err
+	}
 
 	exists, err := a.checkItemExists(code)
 	if err != nil {
@@ -68,6 +71,18 @@ func (a *App) CreateItem(code, name, description string, quantity int) (*Item, e
 	return item, nil
 }
 
+func (i *Item) Validate() error {
+	if strings.TrimSpace(i.Name) == "" {
+		return errors.New("product name cannot be empty")
+	}
+	if strings.TrimSpace(i.Code) == "" {
+		return errors.New("product code cannot be empty")
+	}
+	if i.Quantity < 0 {
+		return errors.New("product quantity cannot be negative")
+	}
+	return nil
+}
 
 func (a *App) checkItemExists(code string) (bool, error) {
 	var exists bool
