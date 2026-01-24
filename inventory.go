@@ -16,7 +16,7 @@ type Item struct {
 }
 
 func (a *App) GetItems(search string) []Item {
-	query := "SELECT id, code, name, description, quantity FROM items where name LIKE ? OR code LIKE ?"
+	query := "SELECT id, code, name, description, quantity, created_at FROM items where name LIKE ? OR code LIKE ? ORDER BY created_at DESC"
 	rows, err := a.db.Query(query, "%"+search+"%", "%"+search+"%")
 	if err != nil {
 		return []Item{}
@@ -25,7 +25,7 @@ func (a *App) GetItems(search string) []Item {
 	var items []Item
 	for rows.Next() {
 		var item Item
-		rows.Scan(&item.Id, &item.Code, &item.Name, &item.Description, &item.Quantity)
+		rows.Scan(&item.Id, &item.Code, &item.Name, &item.Description, &item.Quantity, &item.CreatedAt)
 		items = append(items, item)
 	}
 
