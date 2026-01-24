@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"strings"
@@ -71,7 +72,7 @@ func (a *App) CreateItem(code, name, description string, quantity int) (*Item, e
 func (a *App) checkItemExists(code string) (bool, error) {
 	var exists bool
 	err := a.db.QueryRow(`SELECT EXISTS(SELECT code FROM items WHERE code = ?) from items`, code).Scan(&exists)
-	if err != nil {
+	if err != nil && err != sql.ErrNoRows {
 		return false, fmt.Errorf("failed to check code existence: %w", err)
 	}
 	return exists, nil
