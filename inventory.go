@@ -92,3 +92,30 @@ func (a *App) checkItemExists(code string) (bool, error) {
 	}
 	return exists, nil
 }
+
+func (a *App) UpdateItem(id int, code, name, description string, quantity int) error {
+	query := `UPDATE items
+		SET code = ?, name = ?, description = ?, quantity = ?
+		WHERE id = ?`
+	_, err := a.db.Exec(query, code, description, quantity, id)
+	if err != nil {
+		return fmt.Errorf("failed to update item: %w", err)
+	}
+	return nil
+}
+
+func (a *App) DeleteItem(id int) error {
+	query := `DELETE FROM items WHERE id = ?`
+	result, err := a.db.Exec(query, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete item: %w", err)
+	}
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to check rows affected: %w", err)
+	}
+	if rowsAffected == 0 {
+		return fmt.Errorf("item not found")
+	}
+	return nil
+}
