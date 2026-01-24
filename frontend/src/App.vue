@@ -1,21 +1,22 @@
-<script setup>
-import Login from './views/Login.vue'</script>
-
 <template>
-  <!-- <img id="logo" alt="Wails logo" src="./assets/images/logo-universal.png"/> -->
-<router-view />
+    <v-toolbar title="Go Inventory System" color="orange">
+        <v-toolbar-items>
+            <v-btn>Dashboard</v-btn>
+
+            <!-- <v-btn>Resources</v-btn> -->
+            <v-btn>About</v-btn>
+            <v-divider class="mx-2" vertical></v-divider>
+            <v-btn>logout</v-btn>
+            <!-- <v-btn icon="mdi-dots-vertical"></v-btn> -->
+        </v-toolbar-items>
+    </v-toolbar>
+
+    <router-view />
 </template>
 
 <style>
-#logo {
-  display: block;
-  width: 50%;
-  height: 50%;
-  margin: auto;
-  padding: 10% 0 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-origin: content-box;
+h1 {
+    text-align: center;
+    margin: 20px;
 }
 </style>
