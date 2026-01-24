@@ -6,11 +6,13 @@
             <v-form validate-on="submit lazy" @submit.prevent="submit">
                 <v-text-field
                     v-model="code"
+                    :rules="codeRules"
                     label="Product Code"
                 ></v-text-field>
 
                 <v-text-field
                     v-model="name"
+                    :rules="nameRules"
                     label="Product Name"
                 ></v-text-field>
 
@@ -20,6 +22,7 @@
                 ></v-text-field>
                 <v-text-field
                     v-model.number="quantity"
+                    :rules="quanityRules"
                     label="Initial Quantity"
                     type="number"
                 ></v-text-field>
@@ -58,6 +61,12 @@ const code = ref("");
 const name = ref("");
 const description = ref("");
 const quantity = ref(0);
+
+const codeRules = [(v) => !!v || "Code is required"];
+
+const nameRules = [(v) => !!v || "Name is required"];
+
+const quantityRules = [(v) => v >= 0 || "Quantity cannot be negative"];
 
 const error = ref("");
 
