@@ -66,6 +66,7 @@ async function submit(event) {
     if (!results.valid) return;
 
     loading.value = true;
+    try {
         await CreateItem(
             code.value,
             name.value,
@@ -78,6 +79,11 @@ async function submit(event) {
         name.value = "";
         description.value = "";
         quantity.value = 0;
+    } catch (err) {
+        error.value = err;
+    } finally {
+        loading.value = false;
+    }
 }
 
 function cancel() {
