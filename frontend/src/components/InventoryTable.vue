@@ -4,7 +4,9 @@
       :items="items"
       :loading="loading"
       fixed-header
-      height="520">
+      height="520"
+      no-data-text="No Items Created Yet"
+      >
     </v-data-table>
   </div>
 </template>
