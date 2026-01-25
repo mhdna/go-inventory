@@ -6,13 +6,13 @@
             <v-form validate-on="submit lazy" @submit.prevent="submit">
                 <v-text-field
                     v-model="code"
-                    :rules="codeRules"
+                    :rules="validationRules.code"
                     label="Product Code"
                 ></v-text-field>
 
                 <v-text-field
                     v-model="name"
-                    :rules="nameRules"
+                    :rules="validationRules.name"
                     label="Product Name"
                 ></v-text-field>
 
@@ -20,9 +20,10 @@
                     v-model="description"
                     label="Product Description"
                 ></v-text-field>
+
                 <v-text-field
                     v-model.number="quantity"
-                    :rules="quanityRules"
+                    :rules="validationRules.quantity"
                     label="Initial Quantity"
                     type="number"
                 ></v-text-field>
@@ -51,9 +52,12 @@
 <script setup>
 import { ref } from "vue";
 import { CreateItem, Print } from "../../wailsjs/go/main/App";
+import { itemValidationRules } from "../utils/validationRules";
 
 // to update the table in parent
 const emit = defineEmits(["itemCreated"]);
+
+const validationRules = itemValidationRules;
 
 const dialog = ref(false);
 const loading = ref(false);
@@ -61,12 +65,6 @@ const code = ref("");
 const name = ref("");
 const description = ref("");
 const quantity = ref(0);
-
-const codeRules = [(v) => !!v || "Code is required"];
-
-const nameRules = [(v) => !!v || "Name is required"];
-
-const quantityRules = [(v) => v >= 0 || "Quantity cannot be negative"];
 
 const error = ref("");
 
