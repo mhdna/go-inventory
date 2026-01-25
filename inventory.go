@@ -97,7 +97,7 @@ func (a *App) UpdateItem(id int, code, name, description string, quantity int) e
 	query := `UPDATE items
 		SET code = ?, name = ?, description = ?, quantity = ?
 		WHERE id = ?`
-	_, err := a.db.Exec(query, code, description, quantity, id)
+	_, err := a.db.Exec(query, code, name, description, quantity, id)
 	if err != nil {
 		return fmt.Errorf("failed to update item: %w", err)
 	}
