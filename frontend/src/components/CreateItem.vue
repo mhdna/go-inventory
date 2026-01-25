@@ -43,7 +43,7 @@
                     type="submit"
                     block
                 ></v-btn>
-                {{ error }}
+                <div v-if="error">{{ error }}</div>
             </v-form>
         </v-sheet>
     </v-dialog>
@@ -72,6 +72,8 @@ async function submit(event) {
     if (!results.valid) return;
 
     loading.value = true;
+    error.value = "";
+
     try {
         await CreateItem(
             code.value,
@@ -86,7 +88,7 @@ async function submit(event) {
         description.value = "";
         quantity.value = 0;
     } catch (err) {
-        error.value = err;
+        error.value = err.toString();
     } finally {
         loading.value = false;
     }
@@ -98,5 +100,6 @@ function cancel() {
     name.value = "";
     description.value = "";
     quantity.value = null;
+    error.value = "";
 }
 </script>
