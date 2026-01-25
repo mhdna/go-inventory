@@ -64,8 +64,7 @@ const loading = ref(false);
 const code = ref("");
 const name = ref("");
 const description = ref("");
-const quantity = ref(0);
-
+const quantity = ref(null);
 const error = ref("");
 
 async function submit(event) {
@@ -98,6 +97,6 @@ function cancel() {
     code.value = "";
     name.value = "";
     description.value = "";
-    quantity.value = 0;
+    quantity.value = null;
 }
 </script>
